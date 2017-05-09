@@ -1,6 +1,7 @@
 /*Classe responsável pelo controle da tela de gerenciamento de funcionário*/
 package br.com.cityshare.controller;
 
+import br.com.cityshare.dao.CargoDao;
 import br.com.cityshare.dbutils.FabricaConexao;
 import br.com.cityshare.view.GerFuncionarioView;
 
@@ -24,5 +25,11 @@ public class GerFuncionarioController {
     	
     	/*Fecha a view da janela de gerenciamento de funcionário*/
     	telaFuncionario.setVisible(false);
+	}
+	
+	/*Método para preencher o combobox de acordo com os dados vindos do banco*/
+	public void PreencherCargos(){
+		CargoDao dao = new CargoDao();
+		dao.ListarCargos();
 	}
 }

@@ -1,4 +1,4 @@
-/*Classe respons√°vel por realizar, verificar e encerrar a conex√£o com o banco de dados*/
+/*Classe respons·vel por realizar, verificar e encerrar a conex„o com o banco de dados*/
 
 package br.com.cityshare.dbutils;
 
@@ -9,10 +9,11 @@ import java.sql.SQLException;
 public class FabricaConexao {
     static Connection con;
 
+    /*MÈtodo que realiza a cone„o com o banco de dados*/
     public static Connection Conectar_banco(){
         con = null;
 		
-        //Try-catch para localizar a classe respons√°vel pelo driver 'jdbc'
+        //Try-catch para localizar a classe respons·vel pelo driver 'jdbc'
         try{
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (InstantiationException e) {
@@ -36,18 +37,18 @@ public class FabricaConexao {
         return con;
     }
 	
-    /*M√©todo para encerrar a conex√£o com banco*/
+    /*MÈtodo para encerrar a conex„o com banco*/
     public static void Fechar_banco(){
-	/*Verifica se a conex√£o est√° aberta*/
-	if(con != null){			
+		/*Verifica se a conex„o estiver aberta*/
+		if(con != null){			
 			
-            /*Caso a conex√£o esteja aberta, √© encerrada. Caso n√£o apresenta mensagem de erro*/
-            try{
-		con.close();
-            }catch(SQLException e){
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-            }			
-	}
+			/*Caso a conex„o esteja aberta, ser· encerrada. Caso n„o apresenta mensagem de erro*/
+	        try{
+	        	con.close();
+	        }catch(SQLException e){
+	        	// TODO Auto-generated catch block
+	        	e.printStackTrace();
+	        }		
+		}
     }
 }

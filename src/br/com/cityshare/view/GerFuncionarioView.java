@@ -1,6 +1,8 @@
 /*Classe responsável pela parte visual da tela de Gerenciamento de Funcionário*/
 package br.com.cityshare.view;
 
+import br.com.cityshare.controller.GerFuncionarioController;
+
 @SuppressWarnings("serial")
 public class GerFuncionarioView extends javax.swing.JFrame {
 
@@ -117,7 +119,7 @@ public class GerFuncionarioView extends javax.swing.JFrame {
 
         cboCargo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboCargoActionPerformed(evt);
+                PreencherCargos();
             }
         });
 
@@ -328,7 +330,10 @@ public class GerFuncionarioView extends javax.swing.JFrame {
     }
     
     /*Método para preencher o combobox de cargos*/
-    private void cboCargoActionPerformed(java.awt.event.ActionEvent evt) {}
+    private void PreencherCargos() {
+    	GerFuncionarioController lst = new GerFuncionarioController(this);
+    	lst.PreencherCargos();
+    }
 
     /*Declaração de variáveis*/
     private javax.swing.JButton btnAdd;
