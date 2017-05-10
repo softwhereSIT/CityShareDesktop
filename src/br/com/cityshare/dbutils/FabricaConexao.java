@@ -29,6 +29,7 @@ public class FabricaConexao {
 	
         /*Try-catch para tentar se conectar ao banco*/
         try {
+        	//con = DriverManager.getConnection("jdbc:mysql://localhost/dbcity_share", "root", "bcd127");
             con = DriverManager.getConnection("jdbc:mysql://10.107.144.60:3306/dbcity_share", "root", "bcd127");
         }catch (SQLException e){
             // TODO Auto-generated catch block

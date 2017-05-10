@@ -1,13 +1,19 @@
 /*Classe responsável pela parte visual da tela de Gerenciamento de Funcionário*/
 package br.com.cityshare.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import br.com.cityshare.controller.GerFuncionarioController;
 
 @SuppressWarnings("serial")
 public class GerFuncionarioView extends javax.swing.JFrame {
-
+	/*Variável para abrigar o mod*/
+	String modo = "";
+	
 	/*Método que inicia os componentes na tela*/
-	public GerFuncionarioView() {
+	public GerFuncionarioView() {		
+		modo = "Novo";
         initComponents();
     }
     
@@ -47,7 +53,7 @@ public class GerFuncionarioView extends javax.swing.JFrame {
         txtEmail = new javax.swing.JTextField();
         txtConfEmail = new javax.swing.JTextField();
         txtDtAdmissao = new javax.swing.JTextField();
-
+                
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gerenciamento de Funcionário");
         setMinimumSize(new java.awt.Dimension(700, 600));
@@ -64,6 +70,12 @@ public class GerFuncionarioView extends javax.swing.JFrame {
         btnEditar.setMaximumSize(new java.awt.Dimension(80, 80));
         btnEditar.setMinimumSize(new java.awt.Dimension(80, 80));
         btnEditar.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnEditar.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modo = "Editar";				
+			}
+		});
 
         btnDetalhes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cityshare/images/detailsIcon.png"))); // NOI18N
         btnDetalhes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -79,12 +91,24 @@ public class GerFuncionarioView extends javax.swing.JFrame {
         btnAdd.setMaximumSize(new java.awt.Dimension(80, 80));
         btnAdd.setMinimumSize(new java.awt.Dimension(80, 80));
         btnAdd.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnAdd.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modo = "Novo";				
+			}
+		});
 
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cityshare/images/saveIcon.png"))); // NOI18N
         btnSalvar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnSalvar.setMaximumSize(new java.awt.Dimension(80, 80));
         btnSalvar.setMinimumSize(new java.awt.Dimension(80, 80));
         btnSalvar.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnSalvar.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				EnviarDados();				
+			}
+		});
 
         jScrollPane2.setBorder(null);
         jScrollPane2.setMaximumSize(new java.awt.Dimension(600, 600));
@@ -334,7 +358,39 @@ public class GerFuncionarioView extends javax.swing.JFrame {
     	GerFuncionarioController lst = new GerFuncionarioController(this);
     	lst.PreencherCargos();
     }
-
+    
+    /*Método para enviar os dados dos campos*/
+    @SuppressWarnings("deprecation")
+	private void EnviarDados(){
+    	
+    	/*Resgata o conteúdo digitado nos campos e o guarda nas respectivas variáveis*/
+    	String nome = txtNome.getText().toString();
+    	String rg = txtRg.getText().toString();
+    	String cpf = txtCpf.getText().toString();
+    	String dtNasc = txtDtNasc.getText().toString();
+    	String dtAdm = txtDtAdmissao.getText().toString();
+    	//String idCargo = cboCargo.getSelectedItem().toString();
+    	String idCargo = "1";
+    	String senha = txtSenha.getText().toString();
+    	String email = txtEmail.getText().toString();
+    	
+    	String confSenha = txtConfSenha.getText().toString();
+    	String confEmail = txtConfEmail.getText().toString();
+    	
+    	/*Caso o conteúdo da variável modo seja "Novo", verifica os campos e insere no banco*/
+    	if(modo=="Novo"){
+    		System.out.println("Adicionar funcionário");
+    		
+    		GerFuncionarioController func = new GerFuncionarioController(this);
+    		func.InserirFuncionario(nome, rg, cpf, dtNasc, dtAdm, idCargo, senha, confSenha, email, confEmail);
+    	}
+    	    	
+    	/*Caso o conteúdo da variável modo seja "Editar", preenche os campos com os dados do banco, verifica e atualiza no banco*/
+    	if(modo=="Editar"){
+    		System.out.println("Editar funcionário");
+    	}
+    }    
+    
     /*Declaração de variáveis*/
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDetalhes;

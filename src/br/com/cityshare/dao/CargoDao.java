@@ -6,8 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import br.com.cityshare.dbutils.Cargo;
+
 import br.com.cityshare.dbutils.FabricaConexao;
+import br.com.cityshare.model.Cargo;
 
 public class CargoDao {
 	Connection con = FabricaConexao.Conectar_banco();

@@ -2,8 +2,7 @@
 package br.com.cityshare.controller;
 
 import javax.swing.JOptionPane;
-
-import br.com.cityshare.dao.ClienteDao;
+import br.com.cityshare.dao.FuncionarioDao;
 import br.com.cityshare.view.LoginView;
 import br.com.cityshare.view.PrincipalView;
 
@@ -27,7 +26,7 @@ public class LoginController {
     
     /*Método para chamar a verificação de usuario no banco de acrdo com os parâmetros*/
     public void Verificacao(String email, String senha){
-    	ClienteDao dao = new ClienteDao();
+    	FuncionarioDao dao = new FuncionarioDao();
     	
     	if(dao.VerificarLogin(email, senha)){
     		/*Instanciamos um novo objeto da classe PrincipalView e o tornamos vísivel*/

@@ -506,7 +506,11 @@ public class PrincipalView extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         
         /*Faz com que a tela redimencione de acordo com as dimensões do monitor*/
-        this.setExtendedState(MAXIMIZED_BOTH);                       
+        this.setExtendedState(MAXIMIZED_BOTH);
+        
+        /*Preenche o rodapé com a data e hora do sistema*/
+        PrincipalController dh = new PrincipalController(this);
+        lblHora.setText(dh.BuscarDataHora());
     }
     
     /*Método que executa a ação do botão de LogOff*/

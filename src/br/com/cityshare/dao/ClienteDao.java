@@ -4,37 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import br.com.cityshare.dbutils.FabricaConexao;
 
 public class ClienteDao {
 	Connection con = FabricaConexao.Conectar_banco();
 	PreparedStatement stm = null;
 	ResultSet rs = null;
-	
-	/*Método para verificar login de cliente*/
-	public boolean VerificarLogin(String email, String senha){
-		boolean verificar = false;
-        
-        try{
-            stm = con.prepareStatement("CALL validarLoginCliente(?, ?);");
-            stm.setString(1, email);
-            stm.setString(2, senha);
-			
-            rs = stm.executeQuery();
-			
-            if(rs.next()){
-            	verificar = true;
-            }
-        }catch (SQLException ex){
-            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            FabricaConexao.Fechar_banco();
-        }
-        return verificar;
-	}
 	
 	/*Método para cadastrar um cliente no banco*/
 	public boolean Cadastrar(String nome, String telefone, String celular, String email, String senha, String nroCartao, 
@@ -59,6 +34,8 @@ public class ClienteDao {
 			
 	        if(rs.next()){
 	        	verificar = true;
+	        	
+	          	System.out.println(rs.getArray("idCliente"));
 	        }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -66,4 +43,7 @@ public class ClienteDao {
 		}        
 		return verificar;		
 	}
+	
+	/*Método para selecionar todo os dados funcionáio logado*/
+	public void ListarDados(){}
 }

@@ -1,5 +1,5 @@
 /*Classe responsável por estabelecer a forma como os objetos do tipo cargo deverão ser*/
-package br.com.cityshare.dbutils;
+package br.com.cityshare.model;
 
 public class Cargo {
 	/*Variáveis da classe*/
