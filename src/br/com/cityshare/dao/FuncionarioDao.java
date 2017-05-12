@@ -9,11 +9,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.com.cityshare.dbutils.FabricaConexao;
-
+import br.com.cityshare.model.Funcionario;
+ 
 public class FuncionarioDao {
 	Connection con = FabricaConexao.Conectar_banco();
 	PreparedStatement stm = null;
 	ResultSet rs = null;
+	Funcionario f = new Funcionario();
 	
 	/*Método para verificar login de cliente*/
 	public boolean VerificarLogin(String email, String senha){
@@ -27,7 +29,20 @@ public class FuncionarioDao {
             rs = stm.executeQuery();
 			
             if(rs.next()){
-            	verificar = true;
+            	verificar = true;               	
+            	
+            	f.setIdFuncionario(rs.getInt("id_funcJuridico"));
+            	f.setNome(rs.getString("nome"));
+            	f.setDtNasc(rs.getString("dtNasc"));
+            	f.setRg(rs.getString("rg"));
+            	f.setCpf(rs.getString("cpf"));
+            	f.setEmail(rs.getString("email"));
+            	f.setSenha(rs.getString("senha"));
+            	f.setIdCliente(rs.getInt("idCliente"));
+            	f.setDtAdm(rs.getString("dtAdm"));
+            	f.setIdCargo(rs.getInt("idCargo"));
+            	
+            	//System.out.println(f);
             }
         }catch (SQLException ex){
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -41,18 +56,22 @@ public class FuncionarioDao {
 	public boolean Inserir(String nome, String rg, String cpf, String dtNasc, String dtAdm, String idCargo, String email, String senha){
 		boolean verificar = false;
 		
-		try{
-			stm = con.prepareStatement("CALL addFuncionario(?, ?, ?, ?, ?, ?, ?, ?);");
+		try{					
+			/*Recuperando o id do cliente jurídico de acordo com o funcionário logado no sistema*/
+			String idCliente = f.getIdCliente()+""; 
+			
+			stm = con.prepareStatement("CALL addFuncionarioJuridico(?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			
 			stm.setString(1, nome);
-	        stm.setString(2, rg);
-	        stm.setString(3, cpf);
-	        stm.setString(4, dtNasc);
-	        stm.setString(5, dtAdm);
-	        stm.setString(6, idCargo);
-	        stm.setString(7, senha);
-	        stm.setString(8, email);
-	        
+			stm.setString(2, dtNasc);
+			stm.setString(3, rg);
+			stm.setString(4, cpf);
+			stm.setString(5, email);
+			stm.setString(6, senha);
+			stm.setString(7, idCliente);
+			stm.setString(8, dtAdm);
+			stm.setString(9, idCargo);
+				        
 	        rs = stm.executeQuery();
 	        
 	        verificar = true;

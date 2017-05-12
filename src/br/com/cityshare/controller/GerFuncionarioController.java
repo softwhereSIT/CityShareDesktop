@@ -1,6 +1,7 @@
 /*Classe responsável pelo controle da tela de gerenciamento de funcionário*/
 package br.com.cityshare.controller;
 
+import java.text.ParseException;
 import javax.swing.JOptionPane;
 
 import br.com.cityshare.dao.CargoDao;
@@ -76,13 +77,25 @@ public class GerFuncionarioController {
 	}
 	
 	/*Método para adicionar funcionário na base de dados*/
-	public void InserirFuncionario(String nome, String rg, String cpf, String dtNasc, String dtAdm, String idCargo, String senha, String confSenha, String email, String confEmail){
+	public void InserirFuncionario(String nome, String rg, String cpf, String dtNasc, String dtAdm, String idCargo, String senha, String confSenha, String email, String confEmail) throws ParseException{
 		
 		GerFuncionarioController func = new GerFuncionarioController(telaFuncionario);
 		
-		if(/*func.ConfirmacaoEmail(email, confEmail)==true && func.ConfirmacaoSenha(senha, confSenha)==true && */func.VerificarCampos(nome, idCargo, cpf, dtNasc, dtAdm, idCargo, senha, confSenha, confEmail, confEmail)){
+		if(/*func.ConfirmacaoEmail(email, confEmail) && func.ConfirmacaoSenha(senha, confSenha) && */func.VerificarCampos(nome, idCargo, cpf, dtNasc, dtAdm, idCargo, senha, confSenha, confEmail, confEmail)){
+			
+			/*Convertendo as strings de data para o formato aceitado pelo MySQL(YYYY-MM-DD)*/
+			String diaNasc = dtNasc.substring(0, 2);
+			String mesNasc = dtNasc.substring(3, 5);
+			String anoNasc = dtNasc.substring(6);
+			String dataNascimento = anoNasc+"-"+mesNasc+"-"+diaNasc;
+			
+			String diaAdm = dtAdm.substring(0, 2);
+			String mesAdm = dtAdm.substring(3, 5);
+			String anoAdm = dtAdm.substring(6);
+			String dataAdmissao = anoAdm+"-"+mesAdm+"-"+diaAdm;
+						
 			FuncionarioDao dao = new FuncionarioDao();
-			dao.Inserir(nome, rg, cpf, dtNasc, dtAdm, idCargo, email, senha);
+			dao.Inserir(nome, rg, cpf, dataNascimento, dataAdmissao, idCargo, email, senha);
 			
 			JOptionPane.showMessageDialog(telaFuncionario, "Funcionário inserido com sucesso");
 		}else{

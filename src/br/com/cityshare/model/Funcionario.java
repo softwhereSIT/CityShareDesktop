@@ -11,7 +11,14 @@ public class Funcionario {
 	private int idCargo;
 	private String senha;
 	private String email;
+	private int idCliente;
 	
+	public int getIdCliente() {
+		return idCliente;
+	}
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
 	public int getIdFuncionario() {
 		return idFuncionario;
 	}

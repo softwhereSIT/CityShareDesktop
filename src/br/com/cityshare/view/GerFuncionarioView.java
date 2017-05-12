@@ -3,6 +3,7 @@ package br.com.cityshare.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import br.com.cityshare.controller.GerFuncionarioController;
 
@@ -106,7 +107,12 @@ public class GerFuncionarioView extends javax.swing.JFrame {
         btnSalvar.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				EnviarDados();				
+				try {
+					EnviarDados();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}								
 			}
 		});
 
@@ -361,7 +367,7 @@ public class GerFuncionarioView extends javax.swing.JFrame {
     
     /*Método para enviar os dados dos campos*/
     @SuppressWarnings("deprecation")
-	private void EnviarDados(){
+	private void EnviarDados() throws ParseException{
     	
     	/*Resgata o conteúdo digitado nos campos e o guarda nas respectivas variáveis*/
     	String nome = txtNome.getText().toString();
