@@ -15,7 +15,7 @@ public class CargoDao {
 	PreparedStatement stm = null;
 	ResultSet rs = null;
 	
-	/*Método para lstar todos os cargos*/
+	/*Método para listar todos os cargos*/
 	public ArrayList<Cargo> ListarCargos(){
 		ArrayList<Cargo> lstCargo = new ArrayList<Cargo>();
 		

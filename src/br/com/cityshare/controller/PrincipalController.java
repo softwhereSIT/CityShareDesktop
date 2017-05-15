@@ -23,8 +23,12 @@ public class PrincipalController {
     }
     
     /*Método para fechar a janela Principal*/
-    public void FecharPrincipal(){
-        /*Encerra a conexão com o banco de dados*/
+    public boolean FecharPrincipal(){
+    	/*Chama o método para encerra as janelas*/
+    	PrincipalView principal = new PrincipalView();
+    	principal.EncerrarTodasJanelas();    	
+    	
+    	/*Encerra a conexão com o banco de dados*/
         FabricaConexao.Fechar_banco();
         
         /*Fecha a view da janela principal*/
@@ -32,7 +36,9 @@ public class PrincipalController {
         
         /*Em seguida, abre a tela de login do sistema*/
         LoginController telaLogin = new LoginController(new LoginView());
-        telaLogin.AbrirLogin();    
+        telaLogin.AbrirLogin(); 
+        
+        return true;
     }
     
     /*Método para trazer a data e hora do sistema*/
