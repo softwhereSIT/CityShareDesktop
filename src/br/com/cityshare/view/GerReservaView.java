@@ -4,7 +4,7 @@ package br.com.cityshare.view;
 @SuppressWarnings("serial")
 public class GerReservaView extends javax.swing.JFrame {
 
-	/*Método que inicia os componentes na tela*/
+	/*Construtor da classe*/
     public GerReservaView() {
         initComponents();
     }

@@ -105,4 +105,9 @@ public class GerFuncionarioController {
 	
 	/*Método para editar funcionário na base de dados*/
 	public void AtualizarFuncionario(){}
+	
+	public void TrazLista() {
+	    FuncionarioDao dao = new FuncionarioDao();
+	    System.out.println();
+	}
 }

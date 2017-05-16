@@ -13,6 +13,8 @@ import javax.swing.JFormattedTextField;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -23,7 +25,7 @@ public class GerFuncionarioView extends javax.swing.JFrame {
 	/*Variável para abrigar o mod*/
 	String modo = "";
 	
-	/*Método que inicia os componentes na tela*/
+	/*Construtor da classe*/
 	public GerFuncionarioView() {		
 		modo = "Novo";
 		
@@ -160,13 +162,24 @@ public class GerFuncionarioView extends javax.swing.JFrame {
         );
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTodosClientes = new javax.swing.JTable();
+        	tblTodosClientes.setRowHeight(20);
+        	DefaultTableModel modelo = new DefaultTableModel();
+        	tblTodosClientes.setModel(modelo);
+        	
+        	modelo.addColumn("CÓDIGO");
+        	modelo.addColumn("NOME");
+        	modelo.addColumn("DATA DE NASCIMENTO");
+        	modelo.addColumn("DATA DE ADMISSÃO");
         
-                tblTodosClientes.setModel(new javax.swing.table.DefaultTableModel(
+        	GerFuncionarioController funcLista = new GerFuncionarioController(this);
+        	funcLista.TrazLista();
+        	
+        	/*while(fList.Listar() != null){
+        		modelo.addRow(new Object[]{fList.Listar()});
+        	}*/
+                /*tblTodosClientes.setModel(new javax.swing.table.DefaultTableModel(
                     new Object [][] {
                         {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
                     },
                     new String [] {
                         "CÓDIGO", "NOME", "DATA DE NASCIMENTO", "DATA DE ADMISSÃO"
@@ -179,8 +192,8 @@ public class GerFuncionarioView extends javax.swing.JFrame {
                     public boolean isCellEditable(int rowIndex, int columnIndex) {
                         return canEdit [columnIndex];
                     }
-                });
-                tblTodosClientes.setRowHeight(20);
+                });*/
+                
                 jScrollPane1.setViewportView(tblTodosClientes);
                 GroupLayout gl_panelTodosFuncionarios = new GroupLayout(panelTodosFuncionarios);
                 gl_panelTodosFuncionarios.setHorizontalGroup(
@@ -414,7 +427,7 @@ public class GerFuncionarioView extends javax.swing.JFrame {
     /*Método para enviar os dados dos campos*/
     @SuppressWarnings("deprecation")
 	private void EnviarDados() throws ParseException{
-    	
+    	    	
     	/*Resgata o conteúdo digitado nos campos e o guarda nas respectivas variáveis*/
     	String nome = txtNome.getText().toString();
     	String rg = txtRg.getText().toString();
@@ -428,7 +441,7 @@ public class GerFuncionarioView extends javax.swing.JFrame {
     	
     	String confSenha = txtConfSenha.getText().toString();
     	String confEmail = txtConfEmail.getText().toString();
-    	
+    	  	
     	/*Caso o conteúdo da variável modo seja "Novo", verifica os campos e insere no banco*/
     	if(modo=="Novo"){
     		System.out.println("Adicionar funcionário");

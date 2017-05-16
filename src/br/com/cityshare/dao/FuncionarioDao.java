@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -95,4 +97,33 @@ public class FuncionarioDao {
 	
 	/*Método para excluir os dados de um funcionário de acordo com id passado como parâmetro*/
 	public void Excluir(int id){}
+	
+	/*Método para listar todos os funcionários*/
+	public List<Funcionario> Listar(){
+		List<Funcionario> lstFuncionarios = new ArrayList<Funcionario>();
+		
+		try{
+			stm = con.prepareStatement("CALL listarFuncionarioJuridico();");			
+			rs = stm.executeQuery();
+			
+			while(rs.next()){				
+				Funcionario f = new Funcionario();
+				f.setIdFuncionario(rs.getInt("id_funcjuridico"));
+				f.setNome(rs.getString("nome"));
+				f.setDtNasc(rs.getString("dtNasc"));
+				f.setDtAdm(rs.getString("dtAdm"));
+				
+				lstFuncionarios.add(f);
+			}
+		}catch(SQLException e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lstFuncionarios;
+	}
+	
+	@Override
+	public String toString(){
+		return Listar();
+	}
 }
